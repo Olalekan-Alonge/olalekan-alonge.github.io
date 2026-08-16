@@ -49,7 +49,7 @@
   .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{font-weight:700;font-size:22px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
   nav ul{display:flex;gap:26px;list-style:none}
-  nav a{font-size:18px;color:var(--muted);text-decoration:none;transition:color .15s}
+  nav a{font-size:21px;font-weight:700;color:var(--muted);text-decoration:none;transition:color .15s}
   nav a:hover,nav a:focus-visible{color:var(--ink)}
   a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
   .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;padding:7px 10px;cursor:pointer;color:var(--ink);font-size:18px;line-height:1}
@@ -251,6 +251,137 @@
   }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap" rel="stylesheet">
+
+<style id="three-page-hero">
+  .hero{
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-slides{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+  }
+
+  .hero-slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    opacity:0;
+    visibility:hidden;
+    transform:translateX(30px);
+    transition:opacity .65s ease, transform .65s ease, visibility .65s;
+    padding:40px 0;
+  }
+
+  .hero-slide.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(0);
+  }
+  .hero-slide.active h1{
+    animation:heroHandwriteIn 2.8s ease-out both;
+  }
+
+  @keyframes heroHandwriteIn{
+    0%{
+      opacity:0;
+      clip-path:inset(0 100% 0 0);
+      transform:translateX(-6px);
+    }
+    8%{
+      opacity:1;
+    }
+    100%{
+      opacity:1;
+      clip-path:inset(0 0 0 0);
+      transform:translateX(0);
+    }
+  }
+55%{opacity:1;transform:translateY(-4px) scale(1.01);filter:blur(0);}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+  }
+to{opacity:1;transform:translateY(0) scale(1);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-slide.active h1{animation:none;}
+  }
+
+  .hero-greeting{font-size:clamp(19.2px,2.16vw,34.8px);font-weight:400;}
+  .hero-name{font-size:clamp(100px,11.232vw,181px);font-weight:800;}
+
+  .hero-slide .hero-content{
+    width:100%;
+    max-width:1892px;
+    margin:0 auto;
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .summary-label{
+    margin:0 0 20px;
+    font-size:clamp(18px,2vw,26px);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:#fff;
+  }
+
+  .professional-summary{
+    margin:0;
+    max-width:950px;
+    font-size:clamp(30px,4vw,58px);
+    line-height:1.15;
+    font-weight:600;
+    color:#fff;
+  }
+
+  .hero-dots{
+    position:absolute;
+    z-index:5;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:10px;
+  }
+
+  .hero-dot{
+    width:10px;
+    height:10px;
+    padding:0;
+    border:1px solid rgba(255,255,255,.8);
+    border-radius:50%;
+    background:transparent;
+    cursor:pointer;
+  }
+
+  .hero-dot.active{
+    background:#fff;
+  }
+
+  @media (max-width:700px){
+    .hero-slide{
+      padding:30px 0 55px;
+    }
+
+    .welcome-name{
+      font-size:clamp(46px,13vw,76px);
+    }
+
+    .professional-summary{
+      font-size:clamp(26px,8vw,42px);
+    }
+
+    .hero-dots{
+      bottom:20px;
+    }
+  }
+</style>
+
 </head>
 <body>
 
@@ -277,22 +408,42 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="home">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-         aria-hidden="true">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
     <source src="hero-background.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" aria-hidden="true"></div>
 
-  <div class="wrap hero-grid">
-    <div class="hero-content reveal">
-      <h1>Building Scalable Cloud Solutions<br>From Day&nbsp;One</h1>
-      <p class="hero-sub">Cloud Computing Postgraduate Student <span>· George Brown Polytechnic · Toronto, ON</span></p>
-      <p class="hero-copy">Hands-on experience deploying infrastructure on Microsoft Azure and Amazon Web Services. Actively seeking full-time roles, co-ops, and internships in cloud computing and infrastructure.</p>
-      <div class="btn-row">
-        <a class="btn btn-solid" href="https://github.com/Olalekan-Alonge?tab=repositories" target="_blank" rel="noopener">View My Projects</a>
-        <a class="btn btn-outline" href="#contact">Contact Me</a>
+  <div class="hero-slides">
+    <!-- PAGE 1: Welcome -->
+    <div class="hero-slide active">
+      <div class="hero-content">
+        <h1><span class="hero-greeting">Hi, I'm</span><br><span class="hero-name">Olalekan Alonge.</span></h1>
+        <p class="hero-sub"><strong>CLOUD &amp; SYSTEMS INFRASTRUCTURE SPECIALIST</strong></p>
+        <p class="hero-copy">Designing resilient, scalable cloud architectures and automating mission-critical deployments across hybrid and multi-cloud environments.</p>
+        <div class="btn-row">
+          <a class="btn btn-solid" href="https://github.com/Olalekan-Alonge?tab=repositories" target="_blank" rel="noopener">Explore Cloud Projects</a>
+          <a class="btn btn-outline" href="Olalekan%20Alonge%20Resume.pdf" target="_blank" rel="noopener">Download Resume (PDF)</a>
+        </div>
       </div>
     </div>
+
+    <!-- PAGE 3: Existing Hero -->
+    <div class="hero-slide">
+      <div class="hero-content">
+        <h1>Building Scalable Cloud Solutions<br>From Day One</h1>
+        <p class="hero-sub"><strong>Cloud Computing Postgraduate Student</strong> · George Brown Polytechnic · Toronto, ON</p>
+        <p class="hero-copy">Hands-on experience deploying infrastructure on Microsoft Azure and Amazon Web Services. Actively seeking full-time roles, co-ops, and internships in cloud computing and infrastructure.</p>
+        <div class="btn-row">
+          <a class="btn btn-solid" href="https://github.com/Olalekan-Alonge?tab=repositories" target="_blank" rel="noopener">View My Projects</a>
+          <a class="btn btn-outline" href="#contact">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-dots" aria-label="Hero pages">
+    <button class="hero-dot active" type="button" aria-label="Page 1" aria-current="true"></button>
+    <button class="hero-dot" type="button" aria-label="Page 2"></button>
   </div>
 </section>
 
@@ -424,6 +575,54 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+
+<script>
+(function () {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  if (!slides.length) return;
+
+  let current = 0;
+  let timer;
+
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+      if (i === current && i === 0) {
+        const heading = slide.querySelector('h1');
+        if (heading) {
+          heading.style.animation = 'none';
+          void heading.offsetWidth;
+          heading.style.animation = '';
+        }
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+      dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+    });
+  }
+
+  function startAutoPlay() {
+    clearInterval(timer);
+    timer = setInterval(() => showSlide(current + 1), 12000);
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showSlide(i);
+      startAutoPlay();
+    });
+  });
+
+  showSlide(0);
+  startAutoPlay();
+})();
 </script>
 
 </body>
