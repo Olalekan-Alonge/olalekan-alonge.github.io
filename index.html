@@ -315,6 +315,9 @@
     white-space:nowrap;
   }
 
+
+  /* Profile photo lightbox */
+  .profile-lightbox{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:30px;background:rgba(0,0,0,.82);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}.profile-lightbox.open{opacity:1;visibility:visible;pointer-events:auto}.profile-lightbox img{width:min(82vw,720px);height:min(82vw,720px);max-width:85vh;max-height:85vh;object-fit:cover;border-radius:50%;border:5px solid rgba(255,255,255,.95);box-shadow:0 20px 70px rgba(0,0,0,.55);transform:scale(.82);transition:transform .25s ease}.profile-lightbox.open img{transform:scale(1)}.profile-lightbox-close{position:absolute;top:22px;right:28px;width:44px;height:44px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(0,0,0,.35);color:#fff;font-size:30px;line-height:1;cursor:pointer}.brand-photo{cursor:pointer}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap" rel="stylesheet">
 
@@ -454,7 +457,7 @@ to{opacity:1;transform:translateY(0) scale(1);}
 <header>
   <div class="wrap nav">
     <a class="brand" href="#home">
-      <img src="profile-photo.png" alt="Olalekan Alonge" class="brand-photo">
+      <img src="profile-photo.png" alt="Olalekan Alonge" class="brand-photo" onclick="openProfileLightbox()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openProfileLightbox()">
       <span class="brand-name">Olalekan Alonge</span><span class="brand-divider">| Portfolio</span>
     </a>
     <nav aria-label="Main navigation">
@@ -694,5 +697,8 @@ to{opacity:1;transform:translateY(0) scale(1);}
 })();
 </script>
 
+
+<div class="profile-lightbox" id="profileLightbox" role="dialog" aria-modal="true" aria-label="Profile photo"><button class="profile-lightbox-close" type="button" aria-label="Close profile photo" onclick="closeProfileLightbox()">×</button><img src="profile-photo.png" alt="Olalekan Alonge — enlarged profile photo"></div>
+<script>function openProfileLightbox(){document.getElementById('profileLightbox').classList.add('open');document.body.style.overflow='hidden'}function closeProfileLightbox(){document.getElementById('profileLightbox').classList.remove('open');document.body.style.overflow=''}document.getElementById('profileLightbox').addEventListener('click',function(e){if(e.target===this)closeProfileLightbox()});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProfileLightbox()});</script>
 </body>
 </html>
